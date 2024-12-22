@@ -237,15 +237,15 @@ unset RPCLIB_BASENAME
 # ==============================================================================
 # -- Get GTest and compile it with libc++ --------------------------------------
 # ==============================================================================
-
+# 设置Google Test的版本和基本名称
 GTEST_VERSION=1.8.1
 GTEST_BASENAME=gtest-${GTEST_VERSION}-${CXX_TAG}
-
+# 设置Google Test的安装路径
 GTEST_LIBCXX_INCLUDE=${PWD}/${GTEST_BASENAME}-libcxx-install/include
 GTEST_LIBCXX_LIBPATH=${PWD}/${GTEST_BASENAME}-libcxx-install/lib
 GTEST_LIBSTDCXX_INCLUDE=${PWD}/${GTEST_BASENAME}-libstdcxx-install/include
 GTEST_LIBSTDCXX_LIBPATH=${PWD}/${GTEST_BASENAME}-libstdcxx-install/lib
-
+# 检查是否已经安装了Google Test，如果没有，则下载并编译
 if [[ -d "${GTEST_BASENAME}-libcxx-install" && -d "${GTEST_BASENAME}-libstdcxx-install" ]] ; then
   log "${GTEST_BASENAME} already installed."
 else
@@ -255,14 +255,14 @@ else
       ${GTEST_BASENAME}-libcxx-install ${GTEST_BASENAME}-libstdcxx-install
 
   log "Retrieving Google Test."
-
+# 下载Google Test源代码
   start_download_time=$(date +%s)
 
   git clone --depth=1 -b release-${GTEST_VERSION} https://github.com/google/googletest.git ${GTEST_BASENAME}-source
 
   end_download_time=$(date +%s)
   echo "Elapsed Time downloading rpclib: $(($end_download_time-$start_download_time)) seconds"
-
+# 编译Google Test，使用libc++
   log "Building Google Test with libc++."
 
   mkdir -p ${GTEST_BASENAME}-libcxx-build
@@ -306,7 +306,7 @@ unset GTEST_BASENAME
 # ==============================================================================
 # -- Get Recast&Detour and compile it with libc++ ------------------------------
 # ==============================================================================
-
+# 设置Recast&Detour的基本名称
 RECAST_BASENAME=recast-${CXX_TAG}
 
 RECAST_INCLUDE=${PWD}/${RECAST_BASENAME}-install/include
